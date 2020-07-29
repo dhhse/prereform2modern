@@ -32,7 +32,7 @@ $ python2.7 -m unittest -v tests.system.test_process
 
 from unittest import TestCase
 
-from prereform2modern import Processor
+from prereform2modern.process import Processor
 
 
 class TestProcess(TestCase):

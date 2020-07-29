@@ -6,7 +6,10 @@
 import re
 import sys
 
-from prereform2modern.process import Processor
+try:
+    from prereform2modern.process import Processor
+except ImportError:
+    from process import Processor
 
 def main(args):
     print_log = False

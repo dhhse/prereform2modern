@@ -2,7 +2,10 @@
 __author__ = 'ElenaSidorova'
 import re
 from copy import deepcopy
-from prereform2modern.dict_settings import DictLoader
+try:
+    from prereform2modern.dict_settings import DictLoader
+except ImportError:
+    from dict_settings import DictLoader
 
 signs = [u'!', u'?', u',', u'.', u':', u')', u'(', u'«', u'»', u'“', u'”', u'-', u'–',u'`', u';', u'\\', u'/', u'@',
          u'"', u' ', u'<', u'>', u'$']
