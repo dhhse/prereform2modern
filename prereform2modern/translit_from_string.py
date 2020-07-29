@@ -6,7 +6,7 @@
 import re
 import sys
 
-from process import Processor
+from prereform2modern.process import Processor
 
 def main(args):
     print_log = False

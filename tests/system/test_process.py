@@ -5,10 +5,10 @@
 >>> text = "Онъ стоялъ подлѣ письменнаго стола"
 
 >>> print Processor.process_text(
-    text.decode('utf-8'),
-    [u'@', u'{', u'}'],
-    [u'', u'{', u'}'],
-    1,
+    text=text.decode('utf-8'),
+    show=True,
+    delimiters=[u'', u'{', u'}'],
+    check_brackets=True,
     print_log=False
     )[0]
 
@@ -21,4 +21,5 @@ from prereform2modern import Processor
 
 
 class TestProcess(BaseCase):
-    
+    def test_process_text(self):
+        pass

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 __author__ = 'ElenaSidorova'
 from copy import deepcopy
-from preprocess import Preprocessor
-from tokenizer import Tokenizer
-from transliterator import Transliterator
-from meta_data import META
+from prereform2modern.preprocess import Preprocessor
+from prereform2modern.tokenizer import Tokenizer
+from prereform2modern.transliterator import Transliterator
+from prereform2modern.meta_data import META
 import json
 import subprocess
 
