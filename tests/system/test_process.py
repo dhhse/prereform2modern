@@ -12,6 +12,9 @@ $ source .venv/bin/activate
 (.venv) $ ../.venv/bin/pip install pytest
 (.venv) $ ../.venv/bin/python2.7 -m pytest
 
+This test module can also be run as follows:
+$ python2.7 -m unittest -v tests.system.test_process
+
 
 >>> from prereform2modern import Processor
 >>> text = "Онъ стоялъ подлѣ письменнаго стола"
