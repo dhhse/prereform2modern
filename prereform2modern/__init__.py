@@ -1,1 +1,1 @@
-from process import Processor
+from prereform2modern.process import Processor
