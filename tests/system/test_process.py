@@ -29,6 +29,7 @@ $ python2.7 -m unittest -v tests.system.test_process
 
 Он{Онъ} стоял{стоялъ} подле{подлѣ} письменного{письменнаго} стола
 """
+import json
 
 from unittest import TestCase
 
@@ -37,36 +38,57 @@ from prereform2modern.process import Processor
 
 class TestProcess(TestCase):
     def test_process_text_all_args_false(self):
-        text = 'Онъ стоялъ подлѣ письменнаго стола.'
-        try:  # support for Py2
-            result = Processor.process_text(
-                text.decode('utf-8'), '', '', '', ''
-                )[0]
-        except AttributeError:  # support for Py3
-            result = Processor.process_text(
-                text, '', '', '', ''
-                )[0]
-        expected = u'Он стоял подле письменного стола.'
-        self.assertEqual(result, expected)
+        orig_text = u'Онъ стоялъ подлѣ письменнаго стола.'
+        text_res, changes, w_edits, _json = Processor.process_text(
+            orig_text, '', '', '', ''
+            )
+
+        t_expected = u'Он стоял подле письменного стола.'
+        self.assertEqual(text_res, t_expected)
+
+        changes_expected = u'Онъ --> Он\n\
+стоялъ --> стоял\n\
+подлѣ --> подле\n\
+письменнаго --> письменного'
+        self.assertEqual(changes, changes_expected)
+
+        expected_wrong_edits = []
+        self.assertListEqual(w_edits, expected_wrong_edits)
+
+        _json = json.loads(_json)
+        word_res = _json[u'6'][u'word']
+        old_word_res = _json[u'6'][u'old_word']
+        word_expected = u'письменного'
+        old_word_expected = u'письменнаго'
+        self.assertEqual(word_res, word_expected)
+        self.assertEqual(old_word_res, old_word_expected)
 
     def test_process_text_with_delimiters(self):
-        text = 'Онъ стоялъ подлѣ письменнаго стола.'
-        try:  # support for Py2
-            result = Processor.process_text(
-                text=text.decode('utf-8'),
-                show=False,
-                delimiters=[u'', u'{', u'}'],
-                check_brackets=True,
-                print_log=False
-                )[0]
-        except AttributeError:  # support for Py3
-            result = Processor.process_text(
-                text,
-                text=text.decode('utf-8'),
-                show=False,
-                delimiters=[u'', u'{', u'}'],
-                check_brackets=True,
-                print_log=False
-                )[0]
-        expected = u'Он{Онъ} стоял{стоялъ} подле{подлѣ} письменного{письменнаго} стола.'
-        self.assertEqual(result, expected)
+        text = u'Онъ стоялъ подлѣ письменнаго стола.'
+        text_res, changes, w_edits, _json = Processor.process_text(
+            text=text,
+            show=True,
+            delimiters=[u'', u'{', u'}'],
+            check_brackets=False,
+            print_log=False
+            )
+        t_expected = u'Он{Онъ} стоял{стоялъ} подле{подлѣ} письменного{письменнаго} стола.'
+        self.assertEqual(text_res, t_expected)
+
+        # The rest is the same as in the previous test
+        changes_expected = u'Онъ --> Он\n\
+стоялъ --> стоял\n\
+подлѣ --> подле\n\
+письменнаго --> письменного'
+        self.assertEqual(changes, changes_expected)
+
+        expected_wrong_edits = []
+        self.assertListEqual(w_edits, expected_wrong_edits)
+
+        _json = json.loads(_json)
+        word_res = _json[u'6'][u'word']
+        old_word_res = _json[u'6'][u'old_word']
+        word_expected = u'письменного'
+        old_word_expected = u'письменнаго'
+        self.assertEqual(word_res, word_expected)
+        self.assertEqual(old_word_res, old_word_expected)
