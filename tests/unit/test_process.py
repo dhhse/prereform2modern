@@ -110,3 +110,33 @@ class TestProcess(TestCase):
                    }
         }
         self.assertDictEqual(json_obj, expected_json)
+
+    @context_decorator
+    def test_process_text_with_delimiters(self):
+        orig_text = u'Онъ'
+        text_res, changes, w_edits, _json = Processor.process_text(
+            text=orig_text,
+            show=True,
+            delimiters=[u'', u'{', u'}'],
+            check_brackets=False,
+            print_log=False
+            )
+        t_expected = u'Он{Онъ}'
+        self.assertEqual(text_res, t_expected)
+
+        changes_expected = u'Онъ --> Он'
+        self.assertEqual(changes, changes_expected)
+
+        expected_wrong_edits = []
+        self.assertListEqual(w_edits, expected_wrong_edits)
+
+        json_obj = json.loads(_json)
+        expected_json = {
+            u'0': {u'word': u'Он',
+                   u'plain_word': None,
+                   u'type': u'word',
+                   u'old_word': u'Онъ',
+                   u'old_plain_word': None
+                   }
+        }
+        self.assertDictEqual(json_obj, expected_json)
