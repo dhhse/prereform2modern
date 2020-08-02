@@ -2,7 +2,7 @@
 __author__ = 'ElenaSidorova'
 
 class Transliterator(object):
-    def transliterate(self):
+    def transliterate(self, fake_para):
         return u'Он'
 
 
