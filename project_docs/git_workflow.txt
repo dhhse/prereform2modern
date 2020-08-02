@@ -1,0 +1,94 @@
+Этап 1. Fork & Clone
+
+1.1. Создать fork из репозитория https://github.com/AlexSkrn/prereform2modern
+
+1.2. Клонировать созданный вами fork из вашего аккаунта на Гитхабе себе на локальный диск
+
+1.3. Создать связь с основным репозиторием, т.е. тем, к-ый указан в п. 1
+
+git remote add upstream https://github.com/AlexSkrn/prereform2modern.git
+
+1.4. Получить все данные из основного репозитория:
+
+git fetch --all
+
+1.5. Посмотреть, с какими онлайн-репозиториями получена связь:
+
+git remote -v
+
+Должно быть что-то вроде этого:
+
+origin	https://github.com/YOUR_ACCOUNT/prereform2modern.git (fetch)
+origin	https://github.com/YOUR_ACCOUNT/prereform2modern.git (push)
+upstream	https://github.com/AlexSkrn/prereform2modern.git (fetch)
+upstream	https://github.com/AlexSkrn/prereform2modern.git (push)
+
+1.6. Посмотреть, какие бранчи уже имеются:
+
+git branch -a
+
+Должно быть примерно следующее:
+* master
+  remotes/origin/HEAD -> origin/master
+  remotes/origin/master
+  remotes/upstream/master
+
+
+Этап 2. Внесение изменений в код и подача Pull Request-ов для передачи этих изменений в основной репозиторий
+
+2.1. Обновляем содержимое своих локальных и онлайн-бранчей -- на тот случай, если мой основной репозиторий уже обновился:
+
+git checkout master          # переходим в свой мастер-бранч, если мы уже не в нем
+git pull upstream master     # получаем все новые данные из основного репо
+git push origin master       # обновляем мастер-бранч в своем аккаунте на Гитхабе
+
+2.2. В репозитории есть файл tests/unit/test_word_tokenize.py, и вы хотите внести в него изменения и отправить в основной репозиторий:
+
+git branch mytests  # создаем новый локальный бранч с названием mytests
+git checkout mytests  # входим в новый локальный бранч
+git merge master     # обновляем содержимое бранча mytests
+
+2.3. Вы вносите изменения в файл tests/unit/test_word_tokenize.py, после чего:
+
+git status  # вы увидите, что файл test_word_tokenize.py показан красным шрифтом
+git add test_word_tokenize.py  # добавляете этот файл в контроль версий
+git commit -m 'Added a test to check opening brackets' # сохраняете с комментарием 
+git push origin mytests    # отправили в ваш репозиторий в вашем аккаунте
+
+Эти шаги можно повторять много раз, например, после каждого добавленного теста.
+
+2.4. Создание Pull Request для подачи кода в основной репозиторий
+
+git checkout master          # переходим в свой мастер-бранч
+git pull upstream master     # получаем все новые данные из основного репо
+git checkout mytests  # входим в новый локальный бранч
+git merge master     # обновляем содержимое бранча mytests
+# тут могут возникнуть конфликты, если кто-то еще вносил изменения в тот же самый файл, но пока этого не должно случиться, поэтому оставим такую ситуацию на потом
+git push origin mytests  # отправили в ваш репозиторий в вашем аккаунте
+
+git checkout master  # возвращаемся в мастер
+git merge mytests    # добавляем в него содержимое бранча mytests
+git push origin master  # отправляем изменения в свой онлайн репо в своем аккаунте
+
+После этого заходим в свой репозиторий (т.е. в свой fork) в своем аккуанте. Нажимаем на ссылку pull requests (она идет второй после code или третьей после issues)
+
+Потом нажимаем на зеленую кнопку справа - New pull request
+
+Должно появится меню Comparing changes
+В нем должно быть указано:
+base repository:AlexSkrn/prereform2modern   base: master <- head repo: YOUR_ACC/prereform2modern compare:master
+
+ Able to merge. These branches can be automatically merged.
+
+Нажимаем на зеленую кнопку Create pull request
+
+Заполняем поле Title и по желанию оставляем комментарий и еще раз нажимаем на зеленую кнопку Create pull request
+
+После этого мне на почту приходит сообщение о Pull Request-е и я могу посмотреть его, ответить вам с предложением что-то в нем поменять либо принять его.
+
+Если вы хотите что-то добавить в еще непринятый Pull Request, то повторяете 2.3 и 2.4 до команды git push origin master (включительно). После этого ваш пулл-реквест должен дополниться
+
+Если вы хотите работать над другим файлом, то создайте еще один локальный бранч, как указано выше
+
+
+
