@@ -2,7 +2,9 @@
 
 ```
 $ python2.7 prereform2modern/translit_from_string.py "Онъ стоялъ подлѣ письменнаго стола"
+
 ['prereform2modern/translit_from_string.py', '\xd0\x9e\xd0\xbd\xd1\x8a \xd1\x81\xd1\x82\xd0\xbe\xd1\x8f\xd0\xbb\xd1\x8a \xd0\xbf\xd0\xbe\xd0\xb4\xd0\xbb\xd1\xa3 \xd0\xbf\xd0\xb8\xd1\x81\xd1\x8c\xd0\xbc\xd0\xb5\xd0\xbd\xd0\xbd\xd0\xb0\xd0\xb3\xd0\xbe \xd1\x81\xd1\x82\xd0\xbe\xd0\xbb\xd0\xb0']
+
 /Users/alexskrn/Documents/NLP/HSE/praktika/prereform2modern/prereform2modern/word_tokenize.py:27: UnicodeWarning: Unicode equal comparison failed to convert both arguments to Unicode - interpreting them as being unequal
   if litera in SYMBOLS['symbols']:
 /Users/alexskrn/Documents/NLP/HSE/praktika/prereform2modern/prereform2modern/word_tokenize.py:41: UnicodeWarning: Unicode equal comparison failed to convert both arguments to Unicode - interpreting them as being unequal
@@ -11,9 +13,28 @@ $ python2.7 prereform2modern/translit_from_string.py "Онъ стоялъ под
 Он{Онъ} стоял{стоялъ} подле{подлѣ} письменного{письменнаго} стола
 ```
 
-Флаг __-t__ позволяет получить в дополнение к вышеуказанному результате еще и результат в формате __json__
+Флаг __-t__ позволяет получить результат в формате __json__
 ```
-$ python2.7 prereform2modern/translit_from_string.py -t "Онъ стоялъ подлѣ письменнаго стола"
+$ python2.7 prereform2modern/translit_from_string.py -t "Онъ"
+
+{"0": {"type": "word", "old_plain_word": null, "word": "\u041e\u043d", "old_word": "\u041e\u043d\u044a", "plain_word": null}}
+```
+
+Как это должно работать в Py3:
+```
+$ python3 prereform2modern/translit_from_string.py "Онъ"
+
+['prereform2modern/translit_from_string.py', 'Онъ']
+
+Он{Онъ}
+```
+В Py3 кажется сохраняется проблема с юникодом в объекте json:
+```
+$ python3 prereform2modern/translit_from_string.py -t "Онъ"
+
+['prereform2modern/translit_from_string.py', '-t', 'Онъ']
+
+{"0": {"word": "\u041e\u043d", "old_word": "\u041e\u043d\u044a", "type": "word", "plain_word": null, "old_plain_word": null}}
 ```
 
 ## Использование программы из интерпретатора
