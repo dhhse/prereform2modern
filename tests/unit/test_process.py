@@ -84,8 +84,9 @@ class TestProcess(TestCase):
 
     @context_decorator
     def test_process_text_all_args_false(self):
-
+        """process_text should return 4 expected values."""
         orig_text = u'Онъ'
+        # Call with all patams False except the 'text' parameter
         text_res, changes, w_edits, _json = Processor.process_text(
             orig_text, '', '', '', ''
             )
@@ -99,10 +100,13 @@ class TestProcess(TestCase):
         expected_wrong_edits = []
         self.assertListEqual(w_edits, expected_wrong_edits)
 
-        _json = json.loads(_json)
-        word_res = _json[u'0'][u'word']
-        old_word_res = _json[u'0'][u'old_word']
-        word_expected = u'Он'
-        old_word_expected = u'Онъ'
-        self.assertEqual(word_res, word_expected)
-        self.assertEqual(old_word_res, old_word_expected)
+        json_obj = json.loads(_json)
+        expected_json = {
+            u'0': {u'word': u'Он',
+                   u'plain_word': None,
+                   u'type': u'word',
+                   u'old_word': u'Онъ',
+                   u'old_plain_word': None
+                   }
+        }
+        self.assertDictEqual(json_obj, expected_json)
