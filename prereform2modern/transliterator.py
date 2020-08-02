@@ -3,7 +3,7 @@ __author__ = 'ElenaSidorova'
 
 class Transliterator(object):
     def transliterate(self):
-        pass
+        return u'Он'
 
 
 # a = Transliterator()
