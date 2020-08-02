@@ -35,7 +35,8 @@ delimiters=[u'', u'{', u'}'], text=u"примеръ"
 ```
 
 Если
-```delimiters=[u'<choice><reg>', u'</reg><orig>', u'</orig></choice>']
+```
+delimiters=[u'<choice><reg>', u'</reg><orig>', u'</orig></choice>']
 ```
 то результат будет
 ```
