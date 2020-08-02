@@ -13,7 +13,7 @@ except ImportError:
 
 def main(args):
     print_log = False
-    print args
+    print(args)
     if args[1] == '-t':
         text = ' '.join(args[2:])
         show_json = True
@@ -41,9 +41,9 @@ def main(args):
         except:
             return 0
     if show_json:
-        print new_txt[-1]
+        print(new_txt[-1])
     else:
-        print new_txt[0]
+        print(new_txt[0])
 
     return 0
 
