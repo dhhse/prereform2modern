@@ -37,7 +37,7 @@ class TestMain(TestCase):
             new_callable=StringIO
             ) as mock_stdout:
             main(
-                ['test.py',
+                ['test.py',  # first arg to main is the script name
                  u'Онъ стоялъ подлѣ письменнаго стола'
                  ]
                 )
@@ -58,7 +58,7 @@ class TestMain(TestCase):
                  u'Онъ'
                  ]
                 )
-            expected = u'{"0": {"type": "word", "old_plain_word": null, "word": "\\u041e\\u043d", "old_word": "\\u041e\\u043d\\u044a", "plain_word": null}}'
+            expected = u'{"0": {"type": "word"'
             self.assertIn(
                 expected,
                 mock_stdout.getvalue().strip()
