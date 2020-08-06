@@ -39,8 +39,8 @@ class Processor(object):
             jn[str(key)]['word'] = tokens[key].word
             jn[str(key)]['old_word'] = tokens[key].old_word
             jn[str(key)]['type'] = tokens[key].type
-            jn[str(key)]['plain_word'] = tokens[key].plain_word
-            jn[str(key)]['old_plain_word'] = tokens[key].old_plain_word
+            # jn[str(key)]['plain_word'] = tokens[key].plain_word
+            # jn[str(key)]['old_plain_word'] = tokens[key].old_plain_word
         str_json = json.dumps(jn)
         return str_json
 
