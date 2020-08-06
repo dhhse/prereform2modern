@@ -3,7 +3,8 @@ __author__ = 'ElenaSidorova'
 import codecs
 import os
 
-PATH = 'datasets'
+PACKAGE_DIR = os.path.abspath(os.path.dirname(__file__))
+DATA_DIR = 'datasets'
 
 dicts = [
     'freq.csv',
@@ -36,7 +37,7 @@ class DictLoader(object):
     def read_data(cls, arr):
         result = []
         for d in arr:
-            with codecs.open(os.path.join(PATH, d), 'r', 'utf-8') as inf:
+            with codecs.open(os.path.join(PACKAGE_DIR, DATA_DIR, d), 'r', 'utf-8') as inf:
                 data = inf.read().strip()
             data = data.replace(u'\r', u'').lower().split(u'\n')
             if 'freq' in d:

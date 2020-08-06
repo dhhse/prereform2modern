@@ -11,9 +11,9 @@ try:
 except ImportError:
     from process import Processor
 
-def main(args):
+def main(args=sys.argv):
     print_log = False
-    print(args)
+    # print(args)
     if args[1] == '-t':
         text = ' '.join(args[2:])
         show_json = True
@@ -48,4 +48,5 @@ def main(args):
     return 0
 
 if __name__ == '__main__':
-    main(sys.argv)
+    # main(sys.argv)
+    main()
