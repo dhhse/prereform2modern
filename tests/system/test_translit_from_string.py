@@ -58,7 +58,13 @@ class TestMain(TestCase):
                  u'Онъ'
                  ]
                 )
-            expected = u'{"0": {"type": "word"'
+            expected = u'"0"'
+            self.assertIn(
+                expected,
+                mock_stdout.getvalue().strip()
+                )
+
+            expected = u'"type": "word"'
             self.assertIn(
                 expected,
                 mock_stdout.getvalue().strip()
