@@ -114,22 +114,22 @@ class TestProcess(TestCase):
         json_obj = json.loads(_json)
         expected_json = {
             u'1': {u'word': u' ',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'0': {u'word': u'так',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'такъ',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'2': {u'word': u'[называемую]',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    }
         }
         self.assertDictEqual(json_obj, expected_json)
@@ -155,22 +155,22 @@ class TestProcess(TestCase):
         json_obj = json.loads(_json)
         expected_json = {
             u'1': {u'word': u' ',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'0': {u'word': u'так',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'такъ',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'2': {u'word': u'[называемую]',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    }
         }
         self.assertDictEqual(json_obj, expected_json)
@@ -196,16 +196,16 @@ class TestProcess(TestCase):
         json_obj = json.loads(_json)
         expected_json = {
             u'1': {u'word': u' ',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'0': {u'word': u'так',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'такъ',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'3': {u'word': u'13',
                    u'plain_word': None,
@@ -214,16 +214,16 @@ class TestProcess(TestCase):
                    u'old_plain_word': None
                    },
             u'2': {u'word': u'[',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'4': {u'word': u']',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    }
         }
         self.assertDictEqual(json_obj, expected_json)
@@ -249,27 +249,28 @@ class TestProcess(TestCase):
         json_obj = json.loads(_json)
         expected_json = {
             u'1': {u'word': u' ',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'0': {u'word': u'так',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'такъ',
-                   u'old_plain_word': None},
+                   # u'old_plain_word': None
+                   },
             u'3': {u'word': u']',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'2': {u'word': u'[',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    }
         }
         self.assertDictEqual(json_obj, expected_json)
@@ -295,27 +296,28 @@ class TestProcess(TestCase):
         json_obj = json.loads(_json)
         expected_json = {
             u'1': {u'word': u' ',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'0': {u'word': u'так',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'такъ',
-                   u'old_plain_word': None},
+                   # u'old_plain_word': None
+                   },
             u'3': {u'word': u']',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'2': {u'word': u'[',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    }
         }
         self.assertDictEqual(json_obj, expected_json)
@@ -363,10 +365,10 @@ class TestProcess(TestCase):
         json_obj = json.loads(_json)
         expected_json = {
             u'0': {u'word': u'обычно[м]',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'обычно[мъ]',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    }
         }
         self.assertDictEqual(json_obj, expected_json)
@@ -392,10 +394,10 @@ class TestProcess(TestCase):
         json_obj = json.loads(_json)
         expected_json = {
             u'0': {u'word': u'обычно[м]',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'обычно[мъ]',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    }
         }
         self.assertDictEqual(json_obj, expected_json)

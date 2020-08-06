@@ -39,8 +39,8 @@ def context_decorator(func):
                 self.type = u'word'
                 self.word = u'Онъ'
                 self.old_word = u''
-                self.plain_word = None
-                self.old_plain_word = None
+                # self.plain_word = None
+                # self.old_plain_word = None
 
         fake_tokens = FakeTokens()
         tok_returns = {0: fake_tokens}
@@ -81,10 +81,10 @@ class TestProcess(TestCase):
         json_obj = json.loads(_json)
         expected_json = {
             u'0': {u'word': u'Он',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'Онъ',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    }
         }
         self.assertDictEqual(json_obj, expected_json)
@@ -111,10 +111,10 @@ class TestProcess(TestCase):
         json_obj = json.loads(_json)
         expected_json = {
             u'0': {u'word': u'Он',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'Онъ',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    }
         }
         self.assertDictEqual(json_obj, expected_json)
@@ -126,8 +126,8 @@ class TestProcess(TestCase):
                 self.type = u'word'
                 self.word = u'обычно[мъ]'
                 self.old_word = u''
-                self.plain_word = None
-                self.old_plain_word = None
+                # self.plain_word = None
+                # self.old_plain_word = None
 
         fake_tokens = FakeTokens()
         tok_returns = {0: fake_tokens}
@@ -162,10 +162,10 @@ class TestProcess(TestCase):
                     json_obj = json.loads(_json)
                     expected_json = {
                         u'0': {u'word': u'обычно[м]',
-                               u'plain_word': None,
+                               # u'plain_word': None,
                                u'type': u'word',
                                u'old_word': u'обычно[мъ]',
-                               u'old_plain_word': None
+                               # u'old_plain_word': None
                                }
                     }
                     self.assertDictEqual(json_obj, expected_json)
