@@ -1,32 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 """
-This module contains tests for translit_from_string.
+This module contains some unit tests for translit_from_string.
 
-My setup for running this module is as follows:
-# in directory prereform2modern/
-
-$ python -m pip install --user virtualenv
-$ virtualenv .venv --python=python2.7
-$ source .venv/bin/activate
-(.venv) $ ../.venv/bin/pip install pytest
-
-(.venv) $ ../.venv/bin/python2.7 -m pytest tests/unit/test_process.py
-
-
-#########################################################################
 This test can be run in Py3:
 $ python3 -m pytest tests/unit/test_process.py
-Provided that the module transliterator.py is blank except for the following
-lines:
-    class Transliterator:
-        def transliterate(self):
-            pass
-Otherwise, this module causes SyntaxError in line 13:
-E       re.compile(ur'^воз([пткфсцчщшх].*)', flags=34):ur'вос\1',
-E                                         ^
-#########################################################################
-
 
 >>> from prereform2modern import Processor
 >>> text = "Онъ стоялъ подлѣ письменнаго стола"
