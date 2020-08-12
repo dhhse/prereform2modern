@@ -44,6 +44,6 @@ class TestWordTokenizer(TestCase):
         # В общем, попытаться найти какие-то случаи, в которых код работает в
         # Py2, но возможно не стал бы работать также в Py3
 
-    def test_tokenize_opening_bracket(self):
-        # TODO:
-        pass
+    # def test_tokenize_opening_bracket(self):
+    #     # TODO:
+    #     pass

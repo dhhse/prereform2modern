@@ -193,10 +193,10 @@ class TestProcess(TestCase):
                    # u'old_plain_word': None
                    },
             u'3': {u'word': u'13',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'2': {u'word': u'[',
                    # u'plain_word': None,
