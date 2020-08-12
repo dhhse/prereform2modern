@@ -39,7 +39,7 @@ from prereform2modern.process import Processor
 class TestProcess(TestCase):
     def test_process_text_all_args_false(self):
         orig_text = u'Онъ стоялъ подлѣ письменнаго стола.'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             orig_text, '', '', '', ''
             )
 
@@ -52,9 +52,6 @@ class TestProcess(TestCase):
 письменнаго --> письменного'
         self.assertEqual(changes, changes_expected)
 
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
-
         _json = json.loads(_json)
         word_res = _json[u'6'][u'word']
         old_word_res = _json[u'6'][u'old_word']
@@ -65,7 +62,7 @@ class TestProcess(TestCase):
 
     def test_process_text_with_delimiters(self):
         text = u'Онъ стоялъ подлѣ письменнаго стола.'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=text,
             show=True,
             delimiters=[u'', u'{', u'}'],
@@ -82,9 +79,6 @@ class TestProcess(TestCase):
 письменнаго --> письменного'
         self.assertEqual(changes, changes_expected)
 
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
-
         _json = json.loads(_json)
         word_res = _json[u'6'][u'word']
         old_word_res = _json[u'6'][u'old_word']
@@ -95,7 +89,7 @@ class TestProcess(TestCase):
 
     def test_process_text_with_editorial_correction_in_brackets(self):
         orig_text = u'такъ [называемую]'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=orig_text,
             show=False,
             delimiters=[u'', u'{', u'}'],
@@ -107,9 +101,6 @@ class TestProcess(TestCase):
 
         changes_expected = u'такъ	-->	так'
         self.assertEqual(changes, changes_expected)
-
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
 
         json_obj = json.loads(_json)
         expected_json = {
@@ -136,7 +127,7 @@ class TestProcess(TestCase):
 
     def test_process_text_with_edit_corr_in_brackets_false_brackets(self):
         orig_text = u'такъ [называемую]'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=orig_text,
             show=False,
             delimiters=[u'', u'{', u'}'],
@@ -148,9 +139,6 @@ class TestProcess(TestCase):
 
         changes_expected = u'такъ --> так'
         self.assertEqual(changes, changes_expected)
-
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
 
         json_obj = json.loads(_json)
         expected_json = {
@@ -177,7 +165,7 @@ class TestProcess(TestCase):
 
     def test_process_text_with_digits_in_brackets(self):
         orig_text = u'такъ [13]'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=orig_text,
             show=False,
             delimiters=[u'', u'{', u'}'],
@@ -189,9 +177,6 @@ class TestProcess(TestCase):
 
         changes_expected = u'такъ	-->	так'
         self.assertEqual(changes, changes_expected)
-
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
 
         json_obj = json.loads(_json)
         expected_json = {
@@ -230,7 +215,7 @@ class TestProcess(TestCase):
 
     def test_process_text_with_empty_brackets_check_true(self):
         orig_text = u'такъ []'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=orig_text,
             show=False,
             delimiters=[u'', u'{', u'}'],
@@ -242,9 +227,6 @@ class TestProcess(TestCase):
 
         changes_expected = u'такъ	-->	так'
         self.assertEqual(changes, changes_expected)
-
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
 
         json_obj = json.loads(_json)
         expected_json = {
@@ -277,7 +259,7 @@ class TestProcess(TestCase):
 
     def test_process_text_with_empty_brackets_check_false(self):
         orig_text = u'такъ []'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=orig_text,
             show=False,
             delimiters=[u'', u'{', u'}'],
@@ -289,9 +271,6 @@ class TestProcess(TestCase):
 
         changes_expected = u'такъ --> так'
         self.assertEqual(changes, changes_expected)
-
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
 
         json_obj = json.loads(_json)
         expected_json = {
@@ -324,7 +303,7 @@ class TestProcess(TestCase):
 
     def test_process_text_empty_input(self):
         orig_text = u''
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=orig_text,
             show=False,
             delimiters=[u'', u'{', u'}'],
@@ -337,16 +316,13 @@ class TestProcess(TestCase):
         changes_expected = u''
         self.assertEqual(changes, changes_expected)
 
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
-
         json_obj = json.loads(_json)
         expected_json = {}
         self.assertDictEqual(json_obj, expected_json)
 
     def test_process_text_old_style_correction_in_brackets_check_true(self):
         orig_text = u'обычно[мъ]'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=orig_text,
             show=False,
             delimiters=[u'', u'{', u'}'],
@@ -358,9 +334,6 @@ class TestProcess(TestCase):
 
         changes_expected = u'обычно[мъ] --> обычно[м]'
         self.assertEqual(changes, changes_expected)
-
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
 
         json_obj = json.loads(_json)
         expected_json = {
@@ -375,7 +348,7 @@ class TestProcess(TestCase):
 
     def test_process_text_old_style_correction_in_brackets_check_false(self):
         orig_text = u'обычно[мъ]'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=orig_text,
             show=False,
             delimiters=[u'', u'{', u'}'],
@@ -387,9 +360,6 @@ class TestProcess(TestCase):
 
         changes_expected = u'обычно[мъ] --> обычно[м]'
         self.assertEqual(changes, changes_expected)
-
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
 
         json_obj = json.loads(_json)
         expected_json = {

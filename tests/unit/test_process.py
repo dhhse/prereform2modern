@@ -65,7 +65,7 @@ class TestProcess(TestCase):
         """process_text should return 4 expected values."""
         orig_text = u'Онъ'
         # Call with all patams False except the 'text' parameter
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             orig_text, '', '', '', ''
             )
 
@@ -74,9 +74,6 @@ class TestProcess(TestCase):
 
         changes_expected = u'Онъ --> Он'
         self.assertEqual(changes, changes_expected)
-
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
 
         json_obj = json.loads(_json)
         expected_json = {
@@ -92,7 +89,7 @@ class TestProcess(TestCase):
     @context_decorator
     def test_process_text_with_delimiters(self):
         orig_text = u'Онъ'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=orig_text,
             show=True,
             delimiters=[u'', u'{', u'}'],
@@ -104,9 +101,6 @@ class TestProcess(TestCase):
 
         changes_expected = u'Онъ --> Он'
         self.assertEqual(changes, changes_expected)
-
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
 
         json_obj = json.loads(_json)
         expected_json = {
@@ -143,7 +137,7 @@ class TestProcess(TestCase):
                   return_value=u'обычно[м]'):
 
                     orig_text = u'обычно[мъ]'
-                    text_res, changes, w_edits, _json = Processor.process_text(
+                    text_res, changes, _json = Processor.process_text(
                         text=orig_text,
                         show=False,
                         delimiters=[u'', u'{', u'}'],
@@ -155,9 +149,6 @@ class TestProcess(TestCase):
 
                     changes_expected = u'обычно[мъ] --> обычно[м]'
                     self.assertEqual(changes, changes_expected)
-
-                    expected_wrong_edits = []
-                    self.assertListEqual(w_edits, expected_wrong_edits)
 
                     json_obj = json.loads(_json)
                     expected_json = {
