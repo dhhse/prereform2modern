@@ -1,4 +1,4 @@
 from prereform2modern.process import Processor
 
 
-__version__ = '1.0.2'
+__version__ = '1.0.3'
