@@ -75,8 +75,8 @@ class Transliterator(object):
                 splitted = 1
             else:
                 el = cls.convert_word(el, print_log)
-            if print_log:
-                print('EL', el)
+            # if print_log:
+            #     print('EL', el)
             new_word.append(el)
         if not splitted:
             word = u'-'.join(new_word)
@@ -329,8 +329,8 @@ class Transliterator(object):
     def replace_old_style_letters(cls, part, print_log=True):
         for key in old_style:
             part = part.replace(key, old_style[key])
-            if print_log:
-                print(key, old_style[key], part)
+            # if print_log:
+            #     print(key, old_style[key], part)
         return part
 
     @classmethod

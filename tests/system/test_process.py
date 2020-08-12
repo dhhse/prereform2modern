@@ -40,7 +40,7 @@ class TestProcess(TestCase):
     def test_process_text_all_args_false(self):
         orig_text = u'Онъ стоялъ подлѣ письменнаго стола.'
         text_res, changes, _json = Processor.process_text(
-            orig_text, '', '', '', ''
+            orig_text, '', '', ''
             )
 
         t_expected = u'Он стоял подле письменного стола.'
@@ -67,7 +67,7 @@ class TestProcess(TestCase):
             show=True,
             delimiters=[u'', u'{', u'}'],
             check_brackets=False,
-            print_log=False
+            # print_log=False
             )
         t_expected = u'Он{Онъ} стоял{стоялъ} подле{подлѣ} письменного{письменнаго} стола.'
         self.assertEqual(text_res, t_expected)
@@ -94,7 +94,8 @@ class TestProcess(TestCase):
             show=False,
             delimiters=[u'', u'{', u'}'],
             check_brackets=True,
-            print_log=False)
+            # print_log=False
+            )
 
         t_expected = u"так{такъ} <choice original_editorial_correction='[называемую]'><sic></sic><corr>называемую</corr></choice>"
         self.assertEqual(text_res, t_expected)
@@ -132,7 +133,8 @@ class TestProcess(TestCase):
             show=False,
             delimiters=[u'', u'{', u'}'],
             check_brackets=False,  # This is different from the test above
-            print_log=False)
+            # print_log=False
+            )
 
         t_expected = u'так [называемую]'
         self.assertEqual(text_res, t_expected)
@@ -170,7 +172,8 @@ class TestProcess(TestCase):
             show=False,
             delimiters=[u'', u'{', u'}'],
             check_brackets=True,
-            print_log=False)
+            # print_log=False
+            )
 
         t_expected = u"так{такъ} [13]"
         self.assertEqual(text_res, t_expected)
@@ -220,7 +223,8 @@ class TestProcess(TestCase):
             show=False,
             delimiters=[u'', u'{', u'}'],
             check_brackets=True,
-            print_log=False)
+            # print_log=False
+            )
 
         t_expected = u"так{такъ} []"
         self.assertEqual(text_res, t_expected)
@@ -264,7 +268,8 @@ class TestProcess(TestCase):
             show=False,
             delimiters=[u'', u'{', u'}'],
             check_brackets=False,  # This is different from the test above
-            print_log=False)
+            # print_log=False
+            )
 
         t_expected = u"так []"
         self.assertEqual(text_res, t_expected)
@@ -308,7 +313,8 @@ class TestProcess(TestCase):
             show=False,
             delimiters=[u'', u'{', u'}'],
             check_brackets=False,
-            print_log=False)
+            # print_log=False
+            )
 
         t_expected = u''
         self.assertEqual(text_res, t_expected)
@@ -327,7 +333,8 @@ class TestProcess(TestCase):
             show=False,
             delimiters=[u'', u'{', u'}'],
             check_brackets=True,
-            print_log=False)
+            # print_log=False
+            )
 
         t_expected = u"<choice original_editorial_correction='обычно[мъ]'><sic>обычно</sic><corr>обычном{обычномъ}</corr></choice>"
         self.assertEqual(text_res, t_expected)
@@ -353,7 +360,8 @@ class TestProcess(TestCase):
             show=False,
             delimiters=[u'', u'{', u'}'],
             check_brackets=False,  # This is different from the test above
-            print_log=False)
+            # print_log=False
+            )
 
         t_expected = u'обычно[м]'
         self.assertEqual(text_res, t_expected)

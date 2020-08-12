@@ -17,7 +17,7 @@ def main(args=sys.argv):
             show=True,
             delimiters=[u'', u'{', u'}'],
             check_brackets=False,
-            print_log=False
+            # print_log=False
             )
     else:
         text = ' '.join(args[1:])
@@ -26,7 +26,7 @@ def main(args=sys.argv):
             show=False,
             delimiters=False,
             check_brackets=False,
-            print_log=False
+            # print_log=False
             )
     print(new_txt[0])
 

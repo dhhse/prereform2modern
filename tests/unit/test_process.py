@@ -66,7 +66,7 @@ class TestProcess(TestCase):
         orig_text = u'Онъ'
         # Call with all patams False except the 'text' parameter
         text_res, changes, _json = Processor.process_text(
-            orig_text, '', '', '', ''
+            orig_text, '', '', ''
             )
 
         t_expected = u'Он'
@@ -94,7 +94,7 @@ class TestProcess(TestCase):
             show=True,
             delimiters=[u'', u'{', u'}'],
             check_brackets=False,
-            print_log=False
+            # print_log=False
             )
         t_expected = u'Он{Онъ}'
         self.assertEqual(text_res, t_expected)
@@ -142,7 +142,8 @@ class TestProcess(TestCase):
                         show=False,
                         delimiters=[u'', u'{', u'}'],
                         check_brackets=False,  # This is different
-                        print_log=False)
+                        # print_log=False
+                        )
 
                     t_expected = u'обычно[м]'
                     self.assertEqual(text_res, t_expected)

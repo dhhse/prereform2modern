@@ -18,12 +18,12 @@ except ImportError:
 
 class Processor(object):
     @classmethod
-    def process_text(cls, text, show, delimiters, check_brackets, print_log=True):
+    def process_text(cls, text, show, delimiters, check_brackets):
         text = Preprocessor.preprocess_text(text)
         tokens = Tokenizer.tokenize(text)
         for i in tokens.keys():
             if tokens[i].type == 'word':
-                word = Transliterator.transliterate(tokens[i].word, print_log)
+                word = Transliterator.transliterate(tokens[i].word, print_log=False)
                 if word != tokens[i].word:
                     tokens[i].old_word = deepcopy(tokens[i].word)
                     tokens[i].word = word
