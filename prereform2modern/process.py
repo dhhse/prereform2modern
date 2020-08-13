@@ -2,7 +2,7 @@
 __author__ = 'ElenaSidorova'
 from copy import deepcopy
 import json
-import subprocess
+# import subprocess
 
 try:
     from prereform2modern.preprocess import Preprocessor
