@@ -3,10 +3,7 @@
 
 import sys
 
-try:
-    from prereform2modern.process import Processor
-except ImportError:
-    from process import Processor
+from prereform2modern.process import Processor
 
 
 def main(args=sys.argv):

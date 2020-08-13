@@ -2,13 +2,10 @@
 __author__ = 'ElenaSidorova'
 import re
 from copy import deepcopy
-try:
-    from prereform2modern.token_class import Token
-    from prereform2modern.word_tokenize import WordTokenizer
-except ImportError:
-    from token_class import Token
-    from word_tokenize import WordTokenizer
-#mxqda
+
+from prereform2modern.token_class import Token
+from prereform2modern.word_tokenize import WordTokenizer
+
 
 class Tokenizer(object):
     @classmethod
