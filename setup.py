@@ -12,8 +12,8 @@ from prereform2modern import __version__
 # Package meta-data.
 NAME = 'prereform2modern'
 DESCRIPTION = 'Pre-reform to contemporary orthography convertor for the Russian language'
-URL = 'https://github.com/AlexSkrn/prereform2modern'
-EMAIL = ''
+URL = 'https://github.com/DanilSko/prereform2modern'
+EMAIL = 'dskorinkin@hse.ru'
 AUTHOR = 'Elena Sidorova'
 REQUIRES_PYTHON = '>=3.6.0,<4.0.0'
 
