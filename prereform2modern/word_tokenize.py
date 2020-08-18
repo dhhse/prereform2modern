@@ -51,7 +51,7 @@ class WordTokenizer(object):
                 refactored.append(token)
             else:
                 new = cls.check_token(token)
-                if isinstance(new, unicode):
+                if isinstance(new, str):
                     refactored.append(token)
                 else:
                     refactored += new
@@ -188,10 +188,10 @@ class WordTokenizer(object):
 # a = WordTokenizer()
 # b = a.tokenize(u'''...те\nст... токенизатора.''')
 # b = a.tokenize(u'обычно[мъ] своемъ мѣстѣ, подлѣ барометра, разставивъ ноги на приличное раз[стояніе], заложивъ руки назадъ и приводя за спиною пальцы въ движеніе тѣмъ быстрѣе, чѣмъ болѣе горячился [13] папа, спереди не выказывалъ ни малѣйшаго знака безпокойства, но, напротивъ, выраженіемъ лица выказывалъ совершенное сознаніе своей правоты и вмѣстѣ съ тѣмъ подвластности.')
-# b = a.tokenize(u'«скоб[к»и]»')
+#b = a.tokenize(u'«скоб[к»и]»')
 # b = u"который [на] обычно[мъ] [своемъ] мѣстѣ, под[лѣ] баро[метра], разст[авивъ], любо[въ] 123 д'артань-ян"
 # b = u'qwe[re]fs jk[]jk'
 # b = u'«скоб[к»и]po» [скобки]'
 # b = a.tokenize(b)
-# print u'\n'.join(b)
+#print ('\n'.join(b))
 # print u'\n'.join(a.get_tokens(b))

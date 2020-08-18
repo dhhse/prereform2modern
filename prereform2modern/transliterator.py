@@ -2,23 +2,22 @@
 __author__ = 'ElenaSidorova'
 import re
 from copy import deepcopy
-try:
-    from prereform2modern.dict_settings import DictLoader
-except ImportError:
-    from dict_settings import DictLoader
+
+from prereform2modern.dict_settings import DictLoader
+
 
 signs = [u'!', u'?', u',', u'.', u':', u')', u'(', u'«', u'»', u'“', u'”', u'-', u'–',u'`', u';', u'\\', u'/', u'@',
          u'"', u' ', u'<', u'>', u'$']
 prefix = {
-    re.compile(ur'^воз([пткфсцчщшх].*)', flags=34):ur'вос\1',
-    re.compile(ur'^вз([пткфсцчщшх].*)', flags=34):ur'вс\1',
-    re.compile(ur'^низ([пткфсцчщшх].*)', flags=34):ur'нис\1',
-    re.compile(ur'^из([пткфсцчщшх].*)', flags=34):ur'ис\1',
-    re.compile(ur'^раз([пткфсцчщшх].*)', flags=34):ur'рас\1',
-    re.compile(ur'^роз([пткфсцчщшх].*)', flags=34):ur'рос\1',
-    re.compile(ur'^без([пткфсцчщшх].*)', flags=34):ur'бес\1',
-    re.compile(ur'^через([пткфсцчщшх].*)', flags=34):ur'черес\1',
-    re.compile(ur'^чрез([пткфсцчщшх].*)', flags=34):ur'чрес\1'
+    re.compile(r'^воз([пткфсцчщшх].*)', flags=34):r'вос\1',
+    re.compile(r'^вз([пткфсцчщшх].*)', flags=34):r'вс\1',
+    re.compile(r'^низ([пткфсцчщшх].*)', flags=34):r'нис\1',
+    re.compile(r'^из([пткфсцчщшх].*)', flags=34):r'ис\1',
+    re.compile(r'^раз([пткфсцчщшх].*)', flags=34):r'рас\1',
+    re.compile(r'^роз([пткфсцчщшх].*)', flags=34):r'рос\1',
+    re.compile(r'^без([пткфсцчщшх].*)', flags=34):r'бес\1',
+    re.compile(r'^через([пткфсцчщшх].*)', flags=34):r'черес\1',
+    re.compile(r'^чрез([пткфсцчщшх].*)', flags=34):r'чрес\1'
 }
 particles = [u'б', u'бы', u'ль', u'ли', u'же', u'ж', u'ведь', u'мол', u'даже', u'дескать', u'будто']
 alphabet = u'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'
@@ -39,20 +38,20 @@ old_style = {u'ѣ':u'е', u'ѳ':u'ф', u'i':u'и', u'ъи':u'ы', u'чьк':u'ч
 fixed_forms_exceptions = [u'благо', u'люмбаго', u'маго', u'саго']
 sch_letters = [u'ч', u'щ', u'ж', u'ш']
 old_style_words = {
-    re.compile(ur'^сватьб(.*)', flags=34):[ur'свадьб\1', [], []],
+    re.compile(r'^сватьб(.*)', flags=34):[r'свадьб\1', [], []],
     re.compile(u'^отцем$', flags=34):[u'отцом', [], []],
     re.compile(u'^найдти$', flags=34):[u'найти', [3], []],
     re.compile(u'^прийдти$', flags=34):[u'прийти', [4], []],
     re.compile(u'^перейдти$', flags=34):[u'перейти', [5], []],
-    re.compile(ur'^искуств(.*)', flags=34):[ur'искусств\1', [], [5]],
+    re.compile(r'^искуств(.*)', flags=34):[r'искусств\1', [], [5]],
     re.compile(u'^плечь$', flags=34):[u'плеч', [4], []],
     re.compile(u'^прогрес$', flags=34):[u'прогресс', [], [7]],
-    re.compile(ur'^прогреси(.*)', flags=34):[ur'прогресси\1', [], [7]],
-    re.compile(ur'^учон(.+)', flags=34):[ur'учен\1', [], []],
-    re.compile(ur'^внимателн(.*)', flags=34):[ur'внимательн\1', [], [8]],
-    re.compile(ur'^оффици(.*)', flags=34):[ur'офици\1', [2], []],
-    re.compile(ur'^симетри(.*)', flags=34):[ur'симметри\1', [], [3]],
-    re.compile(ur'^противу(.+)', flags=34):[ur'противо\1', [], []]
+    re.compile(r'^прогреси(.*)', flags=34):[r'прогресси\1', [], [7]],
+    re.compile(r'^учон(.+)', flags=34):[r'учен\1', [], []],
+    re.compile(r'^внимателн(.*)', flags=34):[r'внимательн\1', [], [8]],
+    re.compile(r'^оффици(.*)', flags=34):[r'офици\1', [2], []],
+    re.compile(r'^симетри(.*)', flags=34):[r'симметри\1', [], [3]],
+    re.compile(r'^противу(.+)', flags=34):[r'противо\1', [], []]
 }
 prefixed_exceptions = [
     re.compile(u'^восем.*', flags=34),
@@ -75,8 +74,8 @@ class Transliterator(object):
                 splitted = 1
             else:
                 el = cls.convert_word(el, print_log)
-            if print_log:
-                print 'EL', el
+            # if print_log:
+            #     print('EL', el)
             new_word.append(el)
         if not splitted:
             word = u'-'.join(new_word)
@@ -329,8 +328,8 @@ class Transliterator(object):
     def replace_old_style_letters(cls, part, print_log=True):
         for key in old_style:
             part = part.replace(key, old_style[key])
-            if print_log:
-                print key, old_style[key], part
+            # if print_log:
+            #     print(key, old_style[key], part)
         return part
 
     @classmethod

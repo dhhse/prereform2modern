@@ -1,32 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 """
-This module contains tests for translit_from_string.
+This module contains some unit tests for translit_from_string.
 
-My setup for running this module is as follows:
-# in directory prereform2modern/
-
-$ python -m pip install --user virtualenv
-$ virtualenv .venv --python=python2.7
-$ source .venv/bin/activate
-(.venv) $ ../.venv/bin/pip install pytest
-
-(.venv) $ ../.venv/bin/python2.7 -m pytest tests/unit/test_process.py
-
-
-#########################################################################
 This test can be run in Py3:
 $ python3 -m pytest tests/unit/test_process.py
-Provided that the module transliterator.py is blank except for the following
-lines:
-    class Transliterator:
-        def transliterate(self):
-            pass
-Otherwise, this module causes SyntaxError in line 13:
-E       re.compile(ur'^воз([пткфсцчщшх].*)', flags=34):ur'вос\1',
-E                                         ^
-#########################################################################
-
 
 >>> from prereform2modern import Processor
 >>> text = "Онъ стоялъ подлѣ письменнаго стола"
@@ -61,8 +39,8 @@ def context_decorator(func):
                 self.type = u'word'
                 self.word = u'Онъ'
                 self.old_word = u''
-                self.plain_word = None
-                self.old_plain_word = None
+                # self.plain_word = None
+                # self.old_plain_word = None
 
         fake_tokens = FakeTokens()
         tok_returns = {0: fake_tokens}
@@ -87,8 +65,8 @@ class TestProcess(TestCase):
         """process_text should return 4 expected values."""
         orig_text = u'Онъ'
         # Call with all patams False except the 'text' parameter
-        text_res, changes, w_edits, _json = Processor.process_text(
-            orig_text, '', '', '', ''
+        text_res, changes, _json = Processor.process_text(
+            orig_text, '', '', ''
             )
 
         t_expected = u'Он'
@@ -97,16 +75,13 @@ class TestProcess(TestCase):
         changes_expected = u'Онъ --> Он'
         self.assertEqual(changes, changes_expected)
 
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
-
         json_obj = json.loads(_json)
         expected_json = {
             u'0': {u'word': u'Он',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'Онъ',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    }
         }
         self.assertDictEqual(json_obj, expected_json)
@@ -114,12 +89,12 @@ class TestProcess(TestCase):
     @context_decorator
     def test_process_text_with_delimiters(self):
         orig_text = u'Онъ'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=orig_text,
             show=True,
             delimiters=[u'', u'{', u'}'],
             check_brackets=False,
-            print_log=False
+            # print_log=False
             )
         t_expected = u'Он{Онъ}'
         self.assertEqual(text_res, t_expected)
@@ -127,16 +102,13 @@ class TestProcess(TestCase):
         changes_expected = u'Онъ --> Он'
         self.assertEqual(changes, changes_expected)
 
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
-
         json_obj = json.loads(_json)
         expected_json = {
             u'0': {u'word': u'Он',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'Онъ',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    }
         }
         self.assertDictEqual(json_obj, expected_json)
@@ -148,8 +120,8 @@ class TestProcess(TestCase):
                 self.type = u'word'
                 self.word = u'обычно[мъ]'
                 self.old_word = u''
-                self.plain_word = None
-                self.old_plain_word = None
+                # self.plain_word = None
+                # self.old_plain_word = None
 
         fake_tokens = FakeTokens()
         tok_returns = {0: fake_tokens}
@@ -165,12 +137,13 @@ class TestProcess(TestCase):
                   return_value=u'обычно[м]'):
 
                     orig_text = u'обычно[мъ]'
-                    text_res, changes, w_edits, _json = Processor.process_text(
+                    text_res, changes, _json = Processor.process_text(
                         text=orig_text,
                         show=False,
                         delimiters=[u'', u'{', u'}'],
                         check_brackets=False,  # This is different
-                        print_log=False)
+                        # print_log=False
+                        )
 
                     t_expected = u'обычно[м]'
                     self.assertEqual(text_res, t_expected)
@@ -178,16 +151,13 @@ class TestProcess(TestCase):
                     changes_expected = u'обычно[мъ] --> обычно[м]'
                     self.assertEqual(changes, changes_expected)
 
-                    expected_wrong_edits = []
-                    self.assertListEqual(w_edits, expected_wrong_edits)
-
                     json_obj = json.loads(_json)
                     expected_json = {
                         u'0': {u'word': u'обычно[м]',
-                               u'plain_word': None,
+                               # u'plain_word': None,
                                u'type': u'word',
                                u'old_word': u'обычно[мъ]',
-                               u'old_plain_word': None
+                               # u'old_plain_word': None
                                }
                     }
                     self.assertDictEqual(json_obj, expected_json)

@@ -1,0 +1,7 @@
+recursive-include prereform2modern *
+
+include LICENSE.txt
+include prereform2modern/datasets/*.csv
+
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]

@@ -37,11 +37,11 @@ class TestMain(TestCase):
             new_callable=StringIO
             ) as mock_stdout:
             main(
-                ['test.py',  # first arg to main is the script name
+                ['',  # first arg to main is the script name
                  u'Онъ стоялъ подлѣ письменнаго стола'
                  ]
                 )
-            expected = u'Он{Онъ} стоял{стоялъ} подле{подлѣ} письменного{письменнаго} стола'
+            expected = u'Он стоял подле письменного стола'
             self.assertIn(
                 expected,
                 mock_stdout.getvalue().strip()
@@ -53,18 +53,12 @@ class TestMain(TestCase):
             new_callable=StringIO
         ) as mock_stdout:
             main(
-                ['test.py',
+                ['',
                  '-t',
-                 u'Онъ'
+                 u'Онъ стоялъ подлѣ письменнаго стола'
                  ]
                 )
-            expected = u'"0"'
-            self.assertIn(
-                expected,
-                mock_stdout.getvalue().strip()
-                )
-
-            expected = u'"type": "word"'
+            expected = u'Он{Онъ} стоял{стоялъ} подле{подлѣ} письменного{письменнаго} стола'
             self.assertIn(
                 expected,
                 mock_stdout.getvalue().strip()

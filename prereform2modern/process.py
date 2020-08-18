@@ -2,34 +2,28 @@
 __author__ = 'ElenaSidorova'
 from copy import deepcopy
 import json
-import subprocess
+# import subprocess
 
-try:
-    from prereform2modern.preprocess import Preprocessor
-    from prereform2modern.tokenizer import Tokenizer
-    from prereform2modern.transliterator import Transliterator
-    from prereform2modern.meta_data import META
-except ImportError:
-    from preprocess import Preprocessor
-    from tokenizer import Tokenizer
-    from transliterator import Transliterator
-    from meta_data import META
+from prereform2modern.preprocess import Preprocessor
+from prereform2modern.tokenizer import Tokenizer
+from prereform2modern.transliterator import Transliterator
+from prereform2modern.meta_data import META
 
 
 class Processor(object):
     @classmethod
-    def process_text(cls, text, show, delimiters, check_brackets, print_log=True):
+    def process_text(cls, text, show, delimiters, check_brackets):
         text = Preprocessor.preprocess_text(text)
         tokens = Tokenizer.tokenize(text)
         for i in tokens.keys():
             if tokens[i].type == 'word':
-                word = Transliterator.transliterate(tokens[i].word, print_log)
+                word = Transliterator.transliterate(tokens[i].word, print_log=False)
                 if word != tokens[i].word:
                     tokens[i].old_word = deepcopy(tokens[i].word)
                     tokens[i].word = word
-        text, changes, wrong_edits = cls.join_tokens(tokens, show, delimiters, check_brackets)
+        text, changes = cls.join_tokens(tokens, show, delimiters, check_brackets)
         str_json = cls.to_json(tokens)
-        return text, changes, wrong_edits, str_json
+        return text, changes, str_json
 
     @classmethod
     def to_json(cls, tokens):
@@ -39,8 +33,8 @@ class Processor(object):
             jn[str(key)]['word'] = tokens[key].word
             jn[str(key)]['old_word'] = tokens[key].old_word
             jn[str(key)]['type'] = tokens[key].type
-            jn[str(key)]['plain_word'] = tokens[key].plain_word
-            jn[str(key)]['old_plain_word'] = tokens[key].old_plain_word
+            # jn[str(key)]['plain_word'] = tokens[key].plain_word
+            # jn[str(key)]['old_plain_word'] = tokens[key].old_plain_word
         str_json = json.dumps(jn)
         return str_json
 
@@ -49,7 +43,7 @@ class Processor(object):
         text = []
         changes = []
         spelling = []
-        wrong_changes = []
+        # wrong_changes = []
         for i in range(len(tokens.keys())):
             if check_brackets:
                 if u'[' in tokens[i].word and tokens[i].type == 'word':
@@ -128,7 +122,7 @@ class Processor(object):
             out = u''
         else:
             out = u'\n'.join(changes)
-        return u''.join(text), out, wrong_changes
+        return u''.join(text), out
 
 
 # text = u'Пройдя комнату, такъ [называемую], офиціанскую, мы взошли въ кабинетъ Папа. Онъ стоялъ подлѣ письменнаго стола и, показывая на бумаги, запечатанные конверты, кучки денегъ, горячился и что-то толковалъ прикащику Никитѣ Петрову, который на обычно[мъ] своемъ мѣстѣ, подлѣ барометра, разставивъ ноги на приличное раз[стояніе], заложивъ руки назадъ и приводя за спиною пальцы въ движеніе тѣмъ быстрѣе, чѣмъ болѣе горячился [13] папа, спереди не выказывалъ ни малѣйшаго знака безпокойства, но, напротивъ, выраженіемъ лица выказывалъ совершенное сознаніе своей правоты и вмѣстѣ съ тѣмъ подвластности.'

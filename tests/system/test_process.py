@@ -39,8 +39,8 @@ from prereform2modern.process import Processor
 class TestProcess(TestCase):
     def test_process_text_all_args_false(self):
         orig_text = u'Онъ стоялъ подлѣ письменнаго стола.'
-        text_res, changes, w_edits, _json = Processor.process_text(
-            orig_text, '', '', '', ''
+        text_res, changes, _json = Processor.process_text(
+            orig_text, '', '', ''
             )
 
         t_expected = u'Он стоял подле письменного стола.'
@@ -52,9 +52,6 @@ class TestProcess(TestCase):
 письменнаго --> письменного'
         self.assertEqual(changes, changes_expected)
 
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
-
         _json = json.loads(_json)
         word_res = _json[u'6'][u'word']
         old_word_res = _json[u'6'][u'old_word']
@@ -65,12 +62,12 @@ class TestProcess(TestCase):
 
     def test_process_text_with_delimiters(self):
         text = u'Онъ стоялъ подлѣ письменнаго стола.'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=text,
             show=True,
             delimiters=[u'', u'{', u'}'],
             check_brackets=False,
-            print_log=False
+            # print_log=False
             )
         t_expected = u'Он{Онъ} стоял{стоялъ} подле{подлѣ} письменного{письменнаго} стола.'
         self.assertEqual(text_res, t_expected)
@@ -82,9 +79,6 @@ class TestProcess(TestCase):
 письменнаго --> письменного'
         self.assertEqual(changes, changes_expected)
 
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
-
         _json = json.loads(_json)
         word_res = _json[u'6'][u'word']
         old_word_res = _json[u'6'][u'old_word']
@@ -95,12 +89,13 @@ class TestProcess(TestCase):
 
     def test_process_text_with_editorial_correction_in_brackets(self):
         orig_text = u'такъ [называемую]'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=orig_text,
             show=False,
             delimiters=[u'', u'{', u'}'],
             check_brackets=True,
-            print_log=False)
+            # print_log=False
+            )
 
         t_expected = u"так{такъ} <choice original_editorial_correction='[называемую]'><sic></sic><corr>называемую</corr></choice>"
         self.assertEqual(text_res, t_expected)
@@ -108,40 +103,38 @@ class TestProcess(TestCase):
         changes_expected = u'такъ	-->	так'
         self.assertEqual(changes, changes_expected)
 
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
-
         json_obj = json.loads(_json)
         expected_json = {
             u'1': {u'word': u' ',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'0': {u'word': u'так',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'такъ',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'2': {u'word': u'[называемую]',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    }
         }
         self.assertDictEqual(json_obj, expected_json)
 
     def test_process_text_with_edit_corr_in_brackets_false_brackets(self):
         orig_text = u'такъ [называемую]'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=orig_text,
             show=False,
             delimiters=[u'', u'{', u'}'],
             check_brackets=False,  # This is different from the test above
-            print_log=False)
+            # print_log=False
+            )
 
         t_expected = u'так [называемую]'
         self.assertEqual(text_res, t_expected)
@@ -149,40 +142,38 @@ class TestProcess(TestCase):
         changes_expected = u'такъ --> так'
         self.assertEqual(changes, changes_expected)
 
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
-
         json_obj = json.loads(_json)
         expected_json = {
             u'1': {u'word': u' ',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'0': {u'word': u'так',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'такъ',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'2': {u'word': u'[называемую]',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    }
         }
         self.assertDictEqual(json_obj, expected_json)
 
     def test_process_text_with_digits_in_brackets(self):
         orig_text = u'такъ [13]'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=orig_text,
             show=False,
             delimiters=[u'', u'{', u'}'],
             check_brackets=True,
-            print_log=False)
+            # print_log=False
+            )
 
         t_expected = u"так{такъ} [13]"
         self.assertEqual(text_res, t_expected)
@@ -190,52 +181,50 @@ class TestProcess(TestCase):
         changes_expected = u'такъ	-->	так'
         self.assertEqual(changes, changes_expected)
 
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
-
         json_obj = json.loads(_json)
         expected_json = {
             u'1': {u'word': u' ',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'0': {u'word': u'так',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'такъ',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'3': {u'word': u'13',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'2': {u'word': u'[',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'4': {u'word': u']',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    }
         }
         self.assertDictEqual(json_obj, expected_json)
 
     def test_process_text_with_empty_brackets_check_true(self):
         orig_text = u'такъ []'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=orig_text,
             show=False,
             delimiters=[u'', u'{', u'}'],
             check_brackets=True,
-            print_log=False)
+            # print_log=False
+            )
 
         t_expected = u"так{такъ} []"
         self.assertEqual(text_res, t_expected)
@@ -243,45 +232,44 @@ class TestProcess(TestCase):
         changes_expected = u'такъ	-->	так'
         self.assertEqual(changes, changes_expected)
 
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
-
         json_obj = json.loads(_json)
         expected_json = {
             u'1': {u'word': u' ',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'0': {u'word': u'так',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'такъ',
-                   u'old_plain_word': None},
+                   # u'old_plain_word': None
+                   },
             u'3': {u'word': u']',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'2': {u'word': u'[',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    }
         }
         self.assertDictEqual(json_obj, expected_json)
 
     def test_process_text_with_empty_brackets_check_false(self):
         orig_text = u'такъ []'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=orig_text,
             show=False,
             delimiters=[u'', u'{', u'}'],
             check_brackets=False,  # This is different from the test above
-            print_log=False)
+            # print_log=False
+            )
 
         t_expected = u"так []"
         self.assertEqual(text_res, t_expected)
@@ -289,45 +277,44 @@ class TestProcess(TestCase):
         changes_expected = u'такъ --> так'
         self.assertEqual(changes, changes_expected)
 
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
-
         json_obj = json.loads(_json)
         expected_json = {
             u'1': {u'word': u' ',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'0': {u'word': u'так',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'такъ',
-                   u'old_plain_word': None},
+                   # u'old_plain_word': None
+                   },
             u'3': {u'word': u']',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    },
             u'2': {u'word': u'[',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'punct',
                    u'old_word': u'',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    }
         }
         self.assertDictEqual(json_obj, expected_json)
 
     def test_process_text_empty_input(self):
         orig_text = u''
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=orig_text,
             show=False,
             delimiters=[u'', u'{', u'}'],
             check_brackets=False,
-            print_log=False)
+            # print_log=False
+            )
 
         t_expected = u''
         self.assertEqual(text_res, t_expected)
@@ -335,21 +322,19 @@ class TestProcess(TestCase):
         changes_expected = u''
         self.assertEqual(changes, changes_expected)
 
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
-
         json_obj = json.loads(_json)
         expected_json = {}
         self.assertDictEqual(json_obj, expected_json)
 
     def test_process_text_old_style_correction_in_brackets_check_true(self):
         orig_text = u'обычно[мъ]'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=orig_text,
             show=False,
             delimiters=[u'', u'{', u'}'],
             check_brackets=True,
-            print_log=False)
+            # print_log=False
+            )
 
         t_expected = u"<choice original_editorial_correction='обычно[мъ]'><sic>обычно</sic><corr>обычном{обычномъ}</corr></choice>"
         self.assertEqual(text_res, t_expected)
@@ -357,28 +342,26 @@ class TestProcess(TestCase):
         changes_expected = u'обычно[мъ] --> обычно[м]'
         self.assertEqual(changes, changes_expected)
 
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
-
         json_obj = json.loads(_json)
         expected_json = {
             u'0': {u'word': u'обычно[м]',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'обычно[мъ]',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    }
         }
         self.assertDictEqual(json_obj, expected_json)
 
     def test_process_text_old_style_correction_in_brackets_check_false(self):
         orig_text = u'обычно[мъ]'
-        text_res, changes, w_edits, _json = Processor.process_text(
+        text_res, changes, _json = Processor.process_text(
             text=orig_text,
             show=False,
             delimiters=[u'', u'{', u'}'],
             check_brackets=False,  # This is different from the test above
-            print_log=False)
+            # print_log=False
+            )
 
         t_expected = u'обычно[м]'
         self.assertEqual(text_res, t_expected)
@@ -386,16 +369,13 @@ class TestProcess(TestCase):
         changes_expected = u'обычно[мъ] --> обычно[м]'
         self.assertEqual(changes, changes_expected)
 
-        expected_wrong_edits = []
-        self.assertListEqual(w_edits, expected_wrong_edits)
-
         json_obj = json.loads(_json)
         expected_json = {
             u'0': {u'word': u'обычно[м]',
-                   u'plain_word': None,
+                   # u'plain_word': None,
                    u'type': u'word',
                    u'old_word': u'обычно[мъ]',
-                   u'old_plain_word': None
+                   # u'old_plain_word': None
                    }
         }
         self.assertDictEqual(json_obj, expected_json)
