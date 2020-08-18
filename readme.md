@@ -3,7 +3,7 @@
 ---
 ### &emsp;&emsp;Установка
 ```python
-!pip install -i https://test.pypi.org/simple/ prereform2modern==1.0.5
+pip install prereform2modern
 ```
 
 ### &emsp;&emsp;Запуск из командной строки:
@@ -38,7 +38,7 @@ orig_text = "Онъ стоялъ подлѣ письменнаго стола"
 ```
 
 ```python
-text, changes, s_json = Processor.process_text(
+text_res, changes, s_json = Processor.process_text(
     text=orig_text,
     show=False,
     delimiters=False,
@@ -47,12 +47,12 @@ text, changes, s_json = Processor.process_text(
 ```
 
 ### &emsp;&emsp;Выдача
-* __text: str__
+* __text_res: str__
 
 &emsp;Преобразованный текст.
 
 ```python
-print(text)
+print(text_res)
 ```
 ```
 Он стоял подле письменного стола
